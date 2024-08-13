@@ -1,0 +1,5 @@
+{
+    "name": "@meta/plugable",
+    "private": true,
+    "type": "module"
+}

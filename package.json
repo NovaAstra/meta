@@ -1,0 +1,13 @@
+{
+    "name": "meta",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm install",
+        "dev": "pnpm --filter @smartbi/dashboard dev"
+    },
+    "devDependencies": {
+        "@types/node": "^22.2.0",
+        "typescript": "^5.5.4"
+    }
+}
