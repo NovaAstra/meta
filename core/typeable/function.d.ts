@@ -1,3 +1,7 @@
-export type Arguments<T> = T extends (infer E)[] ? E[] : never
+import type { List } from "./list"
 
-export type Function<T, O> = (...args: Arguments<T>) => O
+export type Arguments<T = unknown> = List<T>
+
+export type Function<T = unknown, O = unknown> = (...args: Arguments<T>) => O
+
+export type Return<T extends Function> = T extends ((...args: Arguments) => infer R) ? R : never

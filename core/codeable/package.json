@@ -1,11 +1,10 @@
 {
-    "name": "@meta/plugable",
+    "name": "@meta/codeable",
     "version": "0.0.1",
     "private": true,
     "type": "module",
     "main": "index.ts",
-    "types": "index.d.ts",
     "dependencies": {
-        "@meta/codeable":"workspace:*"
+        "nanoid": "^5.0.7"
     }
 }

@@ -7,6 +7,7 @@
     "exports": {
         ".": "./index.d.ts",
         "./function": "./function.d.ts",
+        "./list": "./list.d.ts",
         "./promise": "./promise.d.ts"
     }
 }

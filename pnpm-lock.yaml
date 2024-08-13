@@ -18,9 +18,19 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
 
+  core/codeable:
+    dependencies:
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
+
   core/hookable: {}
 
-  core/plugable: {}
+  core/plugable:
+    dependencies:
+      '@meta/codeable':
+        specifier: workspace:*
+        version: link:../codeable
 
   core/typeable: {}
 
@@ -28,6 +38,11 @@ packages:
 
   '@types/node@22.2.0':
     resolution: {integrity: sha512-bm6EG6/pCpkxDf/0gDNDdtDILMOHgaQBVOJGdwsqClnxA3xL6jtMv76rLBc006RVMWbmaf0xbmom4Z/5o2nRkQ==}
+
+  nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
@@ -42,6 +57,8 @@ snapshots:
   '@types/node@22.2.0':
     dependencies:
       undici-types: 6.13.0
+
+  nanoid@5.0.7: {}
 
   typescript@5.5.4: {}
 
