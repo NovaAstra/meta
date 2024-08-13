@@ -2,6 +2,7 @@
     "name": "@meta/typeable",
     "version": "0.0.1",
     "private": true,
+    "type": "module",
     "types": "index.d.ts",
     "exports": {
         ".": "./index.d.ts",

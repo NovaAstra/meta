@@ -2,5 +2,7 @@
     "name": "@meta/plugable",
     "version": "0.0.1",
     "private": true,
-    "type": "module"
+    "type": "module",
+    "main": "index.ts",
+    "types": "index.d.ts"
 }
