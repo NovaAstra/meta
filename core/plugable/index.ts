@@ -5,3 +5,7 @@ export function usePlugin() { }
 export function sortPlugins() { }
 
 export function checkPlugins() { }
+
+export class PluginFactory {
+
+}
