@@ -8,8 +8,8 @@
         "dev": "pnpm --filter @smartbi/dashboard dev"
     },
     "devDependencies": {
+        "@meta-core/typeable":"workspace:*",
         "@types/node": "^22.2.0",
-        "typescript": "^5.5.4",
-        "@meta/typeable":"workspace:*"
+        "typescript": "^5.5.4"
     }
 }
