@@ -4,8 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "setup": "rm -rf **/node_modules **/dist ./pnpm-lock.yaml && pnpm install",
-        "dev": "pnpm --filter @smartbi/dashboard dev"
+        "demo": "pnpm --filter @meta-vue/demo dev"
     },
     "devDependencies": {
         "@meta-core/typeable":"workspace:*",

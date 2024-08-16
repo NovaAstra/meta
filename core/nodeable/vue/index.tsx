@@ -21,21 +21,25 @@ export function createStyled(tag: ElementType) {
             },
         },
         setup() {
-            return <div>11</div>
+            return () => <div>11</div>
         }
     })
 
     return Primitive
 }
 
+const styledFn = createStyled.bind(null) as any
+
 export function factory() {
     const cache = new Map()
 
-    const instance = new Proxy(null, {
-        apply(_, __, args) { },
+    const instance = new Proxy(styledFn, {
+        apply(_, __, args: Parameters<typeof createStyled>) {
+            return styledFn(...args)
+        },
         get(_, el) {
             if (!cache.has(el)) {
-
+                cache.set(el, styledFn(el))
             }
             return cache.get(el)
         }
@@ -43,5 +47,3 @@ export function factory() {
 
     return instance
 }
-
-export const chroma = factory()

@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "exports": {
-        "./vue": "./index.ts",
-        "./react": "./index.ts"
+        "./vue": "./vue/index.tsx",
+        "./react": "./react/index.tsx"
     },
     "devDependencies": {
         "vue": "^3.4.38"
