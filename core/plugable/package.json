@@ -1,11 +1,11 @@
 {
-    "name": "@meta/plugable",
+    "name": "@meta-core/plugable",
     "version": "0.0.1",
     "private": true,
     "type": "module",
     "main": "index.ts",
     "types": "index.d.ts",
     "dependencies": {
-        "@meta/codeable":"workspace:*"
+        "@meta-core/codeable":"workspace:*"
     }
 }

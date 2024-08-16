@@ -1,5 +1,5 @@
 {
-    "name": "@meta/codeable",
+    "name": "@meta-core/codeable",
     "version": "0.0.1",
     "private": true,
     "type": "module",

@@ -1,5 +1,5 @@
 {
-    "name": "@meta/chroma",
+    "name": "@meta-vue/shared",
     "version": "0.0.1",
     "private": true,
     "type": "module",
