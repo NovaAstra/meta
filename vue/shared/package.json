@@ -1,12 +1,8 @@
 {
-    "name": "@meta/nodeable",
+    "name": "@meta/chroma",
     "version": "0.0.1",
     "private": true,
     "type": "module",
-    "exports": {
-        "./vue": "./index.ts",
-        "./react": "./index.ts"
-    },
     "devDependencies": {
         "vue": "^3.4.38"
     }

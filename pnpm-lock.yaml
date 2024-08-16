@@ -18,6 +18,14 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
 
+  apps/chroma:
+    devDependencies:
+      vue:
+        specifier: ^3.4.38
+        version: 3.4.38(typescript@5.5.4)
+
+  apps/palette: {}
+
   core/codeable:
     dependencies:
       nanoid:
