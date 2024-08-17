@@ -1,7 +1,16 @@
-import { type IntrinsicElementAttributes, type Component, h, defineComponent } from "vue"
+import {
+    type IntrinsicElementAttributes,
+    type AllowedComponentProps,
+    type ComponentCustomProps,
+    type Component,
+    h,
+    defineComponent
+} from "vue"
 
 export type DOMElements = keyof IntrinsicElementAttributes
 export type ElementType = Parameters<typeof h>[0]
+
+
 
 export interface JsxFactory {
     <T extends ElementType>(component: T): Component
