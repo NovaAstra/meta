@@ -1,7 +1,17 @@
-import { type IntrinsicElementAttributes, h, defineComponent } from "vue"
+import { type IntrinsicElementAttributes, type Component, h, defineComponent } from "vue"
 
 export type DOMElements = keyof IntrinsicElementAttributes
 export type ElementType = Parameters<typeof h>[0]
+
+export interface JsxFactory {
+    <T extends ElementType>(component: T): Component
+}
+
+export type JsxElements = {
+    [K in DOMElements]: Component
+}
+
+export type StyledFactoryFn = JsxFactory & JsxElements
 
 const Slot = defineComponent({
     inheritAttrs: false,
@@ -28,7 +38,7 @@ export function createStyled(tag: ElementType) {
     return Primitive
 }
 
-const styledFn = createStyled.bind(null) as any
+const styledFn = createStyled.bind(null) as unknown as JsxFactory
 
 export function factory() {
     const cache = new Map()
@@ -38,8 +48,9 @@ export function factory() {
             return styledFn(...args)
         },
         get(_, el) {
-            if (!cache.has(el)) {
-                cache.set(el, styledFn(el))
+            const as = el as unknown as ElementType
+            if (!cache.has(as)) {
+                cache.set(as, styledFn(as))
             }
             return cache.get(el)
         }
@@ -47,3 +58,5 @@ export function factory() {
 
     return instance
 }
+
+export const chroma = factory() as unknown as StyledFactoryFn

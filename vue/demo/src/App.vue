@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { factory } from "@meta-core/nodeable/vue"
+import { chroma } from "@meta-core/nodeable/vue"
 
-const chroma = factory()
 </script>
 
 <template>
