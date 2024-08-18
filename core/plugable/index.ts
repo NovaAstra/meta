@@ -1,11 +1,5 @@
-export function createPlugin() { }
-
-export function usePlugin() { }
-
-export function sortPlugins() { }
+export type Plugin = {
+    name: string;
+}
 
 export function checkPlugins() { }
-
-export class PluginFactory {
-
-}
