@@ -43,4 +43,7 @@ export class PluginFactory {
     }
 
     public bootstrap() { }
+
+
+    public static isPlugin() { }
 }
