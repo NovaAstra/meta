@@ -18,15 +18,19 @@ export type Plugin<Hooks, API> = Required<PluginOptions<Hooks, Setup<Hooks, API>
 
 
 export function createScheduler(hooks, models) {
-    const scheduler = Object.create()
+    const scheduler = Object.create(null)
 
-    if (models) {
-        for (const key in models) {
+    for (const key in models) {
+        hooks.forEach(callbacks => {
+            if (callbacks?.[key]) {
+                models[key].tap(callbacks[key]);
+            }
+        });
 
-        }
-
-        scheduler[key] = (...args) => models[key].run.apply(null, ...args)
+        scheduler[key] = models[key].run.bind(models[key])
     }
+
+
 
     return scheduler;
 }
@@ -39,10 +43,4 @@ export class PluginFactory {
     }
 
     public bootstrap() { }
-}
-
-export function plugable() {
-    const factory = new PluginFactory();
-    const scheduler = factory.bootstrap()
-    return scheduler
 }
