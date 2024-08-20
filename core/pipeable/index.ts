@@ -32,6 +32,10 @@ export class Pipeline<I, O> implements PipelineLike<I, O> {
     }
 
     private dispatch(index: number, input: I): O {
+        if (index >= this.middlewares.length) {
+            throw new Error(`Expect returning a value, but all middlewares just calling next()`)
+        }
+
         const fn = this.middlewares[index];
         const next = ((nextInput = input) => this.dispatch(index + 1, nextInput)) as Next<I, O>
         return fn(input, next);
