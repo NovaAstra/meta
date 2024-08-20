@@ -4,6 +4,7 @@
     "private": true,
     "type": "module",
     "devDependencies": {
-        "@meta-core/typeable": "workspace:*"
+        "@meta-core/typeable": "workspace:*",
+        "@meta-core/pipeable": "workspace:*"
     }
 }

@@ -26,6 +26,9 @@ importers:
 
   core/hookable:
     devDependencies:
+      '@meta-core/pipeable':
+        specifier: workspace:*
+        version: link:../pipeable
       '@meta-core/typeable':
         specifier: workspace:*
         version: link:../typeable
@@ -35,6 +38,12 @@ importers:
       vue:
         specifier: ^3.4.38
         version: 3.4.38(typescript@5.5.4)
+
+  core/pipeable:
+    devDependencies:
+      '@meta-core/typeable':
+        specifier: workspace:*
+        version: link:../typeable
 
   core/plugable:
     dependencies:
