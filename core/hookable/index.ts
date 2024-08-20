@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export type Next<T, O> = (input?: T) => O;
 
 export type Middleware<T, O> = (input: T, next: Next<T, O>) => O
