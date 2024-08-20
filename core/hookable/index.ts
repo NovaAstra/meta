@@ -1,22 +1,22 @@
+import { type Arguments } from "@meta-core/typeable"
 import { Pipeline } from "@meta-core/pipeable"
 
 export function unshift<T>(element: T, args: T[]): T[] {
     return element ? [element].concat(args.slice(0, -1)) : args;
 }
 
-export abstract class HookFactory<I, O> {
+export abstract class HookFactory<I extends Arguments, O> {
     protected pipeline = new Pipeline<I, O>()
 
-    public call(): O {
-        return this.pipeline.start(arguments as I)
+    public call(...args: I): O {
+        return this.pipeline.start(args)
     }
 }
 
-export class SyncHook<I, O> extends HookFactory<I, O> {
-    public tap(callback) {
+export class SyncHook<I extends Arguments, O = void> extends HookFactory<I, O> {
+    public tap(callback: (...args: I) => O) {
         this.pipeline.use((input, next) => {
-            callback(input)
-
+            callback(...input)
             return next()
         })
     }

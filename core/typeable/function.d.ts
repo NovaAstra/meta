@@ -1,4 +1,4 @@
-import type { List } from "./list"
+import { type List } from "./list"
 
 export type Arguments<T = unknown> = List<T>
 

@@ -2,12 +2,9 @@
     "name": "@meta-core/typeable",
     "version": "0.0.1",
     "private": true,
-    "type": "module",
-    "types": "index.d.ts",
-    "exports": {
-        ".": "./index.d.ts",
-        "./function": "./function.d.ts",
-        "./list": "./list.d.ts",
-        "./promise": "./promise.d.ts"
-    }
+    "types": "./index.d.ts",
+    "sideEffects": false,
+    "files": [
+		"index.d.ts"
+	]
 }
