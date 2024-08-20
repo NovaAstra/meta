@@ -2,5 +2,8 @@
     "name": "@meta-core/hookable",
     "version": "0.0.1",
     "private": true,
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "@meta-core/typeable": "workspace:*"
+    }
 }

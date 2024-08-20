@@ -1,14 +1,12 @@
-// @ts-nocheck
+export type Next<T, O> = (input?: T) => O;
 
-export type Next<T = unknown, O = unknown> = (input?: T) => O;
+export type Middleware<T, O> = (input: T, next: Next<T, O>) => O
 
-export type Middleware<T = unknown, O = unknown> = (input: T, next: Next<T, O>) => O
+export type Middlewares<T, O> = Middleware<T, O>[];
 
-export type Middlewares<T = unknown, O = unknown> = Middleware<T, O>[];
+export type PipelineLike<T, O> = { middlewares: Middlewares<T, O> };
 
-export type PipelineLike<T = unknown, O = unknown> = { middlewares: Middlewares<T, O> };
-
-export type MiddlewareInput<T = unknown, O = unknown> = Middleware<T, O> | Middlewares<T, O> | PipelineLike<T, O>;
+export type MiddlewareInput<T, O> = Middleware<T, O> | Middlewares<T, O> | PipelineLike<T, O>;
 
 export function getMiddlewares<T, O>(input: MiddlewareInput<T, O>): Middlewares<T, O> {
     if (typeof input === 'function') return [input];
@@ -17,31 +15,27 @@ export function getMiddlewares<T, O>(input: MiddlewareInput<T, O>): Middlewares<
 
     if (input.middlewares) return input.middlewares
 
-    throw new Error(`${input} is not a Middleware`);
+    throw new Error(`${input} is not a valid Middleware`);
 }
 
-export function unshift(element, args) {
+export function unshift<T>(element: T, args: T[]): T[] {
     return element ? [element].concat(args.slice(0, -1)) : args;
 }
 
 export class Pipeline<T = unknown, O = unknown> implements PipelineLike<T, O> {
     public middlewares: Middlewares<T, O> = []
 
-    public use(middleware: MiddlewareInput<T, O>) {
+    public use(middleware: MiddlewareInput<T, O>): void {
         const middlewares = getMiddlewares<T, O>(middleware)
 
         this.middlewares.push(...middlewares)
     }
 
-    public start(input: T) {
+    public start(input: T): O {
         return this.dispatch(0, input);
     }
 
-    public dispatch(index: number, input: T) {
-        if (index >= this.middlewares.length) {
-            return
-        }
-
+    private dispatch(index: number, input: T): O {
         const fn = this.middlewares[index];
         const next = ((nextInput = input) => this.dispatch(index + 1, nextInput)) as Next<T, O>
 

@@ -24,7 +24,11 @@ importers:
         specifier: ^5.0.7
         version: 5.0.7
 
-  core/hookable: {}
+  core/hookable:
+    devDependencies:
+      '@meta-core/typeable':
+        specifier: workspace:*
+        version: link:../typeable
 
   core/nodeable:
     devDependencies:
