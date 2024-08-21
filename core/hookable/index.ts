@@ -1,10 +1,10 @@
 import { type Arguments, type WritableArray } from "@meta-core/typeable"
 import { Pipeline } from "@meta-core/pipeable"
 
-const a: WritableArray<Arguments> = []
+export type AsArray<T> = T extends unknown[] ? T : [T];
 
-export function unshift<R, I extends Arguments>(result: R, args: I): I {
-    return result ? [result].concat(args.slice(1) as any) as unknown as I : args;
+export function unshift<R, I extends WritableArray<Arguments<NonNullable<R>>>>(result: R, args: I) {
+    return result !== undefined ? [result].concat(args.slice(1)) : args;
 }
 
 export abstract class HookFactory<I extends Arguments, O> {
@@ -46,11 +46,11 @@ export class SyncWaterfallHook<I extends Arguments, O = void> extends HookFactor
     }
 }
 
-// export class SyncLoopHook<T, O> extends HookFactory<T, O> {
-//     public tap(callback) {
+export class SyncLoopHook<I extends Arguments, O = void> extends HookFactory<I, O> {
+    public tap(callback: (...args: I) => O): void {
 
-//     }
-// }
+    }
+}
 
 // export class AsyncParallelHook<T, O> extends HookFactory<T, O> {
 //     public tap(callback) {
