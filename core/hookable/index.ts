@@ -1,10 +1,10 @@
-import { type Arguments, type WritableArray } from "@meta-core/typeable"
+import { type Arguments, type WritableArray, type Nullable } from "@meta-core/typeable"
 import { Pipeline } from "@meta-core/pipeable"
 
-export type AsArray<T> = T extends unknown[] ? T : [T];
 
-export function unshift<R, I extends WritableArray<Arguments<NonNullable<R>>>>(result: R, args: I) {
-    return result !== undefined ? [result].concat(args.slice(1)) : args;
+
+export function unshift<R, I extends Arguments>(result: R, args: I) {
+    return result !== undefined ? [result, ...args.slice(1)] : args;
 }
 
 export abstract class HookFactory<I extends Arguments, O> {
