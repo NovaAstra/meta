@@ -1,10 +1,11 @@
 {
-    "name": "@meta-core/typeable",
-    "version": "0.0.1",
-    "private": true,
-    "types": "./index.d.ts",
-    "sideEffects": false,
-    "files": [
-		"index.d.ts"
-	]
+  "name": "@meta-core/typeable",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "index.d.ts"
+  ]
 }
