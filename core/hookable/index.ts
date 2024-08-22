@@ -46,7 +46,10 @@ export class SyncWaterfallHook<I extends Arguments, O = void> extends HookFactor
 
 export class SyncLoopHook<I extends Arguments, O = void> extends HookFactory<I, O> {
     public tap(callback: (...args: I) => O): void {
-
+        this.pipeline.use((input, next) => {
+            const result = callback(...input)
+            return result === undefined ? next() : this.call(...input)
+        })
     }
 }
 

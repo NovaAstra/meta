@@ -1,4 +1,4 @@
-import { SyncHook, SyncBailHook, SyncWaterfallHook } from "."
+import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook } from "."
 
 const syncHook = new SyncHook()
 
@@ -49,4 +49,41 @@ syncWaterfallHook.tap((name, age) => {
     console.log('EventC:', name, age)
 })
 
-syncWaterfallHook.call('august.gao', '28')
+// syncWaterfallHook.call('august.gao', '28')
+
+const syncLoopHook = new SyncLoopHook()
+
+let count = 5
+
+syncLoopHook.tap((name, age) => {
+    console.log('EventA:', name, age, count)
+    if ([1, 2, 3].includes(count)) {
+        return undefined
+    } else {
+        count--
+        return '123'
+    }
+})
+
+syncLoopHook.tap((name, age) => {
+    console.log('EventB:', name, age, count)
+    if ([1, 2].includes(count)) {
+        return undefined
+    } else {
+        count--
+        return '123'
+    }
+})
+
+syncLoopHook.tap((name, age) => {
+    console.log('EventC:', name, age, count)
+
+    if ([1].includes(count)) {
+        return undefined
+    } else {
+        count--
+        return '123'
+    }
+})
+
+syncLoopHook.call('august.gao', '28')
