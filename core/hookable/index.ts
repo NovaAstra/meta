@@ -1,10 +1,8 @@
-import { type Arguments, type WritableArray, type Nullable } from "@meta-core/typeable"
+import { type Arguments } from "@meta-core/typeable"
 import { Pipeline } from "@meta-core/pipeable"
 
-
-
-export function unshift<R, I extends Arguments>(result: R, args: I) {
-    return result !== undefined ? [result, ...args.slice(1)] : args;
+export function unshift<R, I extends Arguments>(result: R, args: I): I {
+    return result !== undefined ? [result, ...args.slice(1)] as I : args;
 }
 
 export abstract class HookFactory<I extends Arguments, O> {
@@ -51,6 +49,8 @@ export class SyncLoopHook<I extends Arguments, O = void> extends HookFactory<I, 
 
     }
 }
+
+
 
 // export class AsyncParallelHook<T, O> extends HookFactory<T, O> {
 //     public tap(callback) {

@@ -1,4 +1,6 @@
-export type List<T = unknown> = ReadonlyArray<T>
+export type List<T = unknown> = Array<T>
+
+export type Tail<T extends any[]> = T extends [any, ...infer R] ? R : never;
 
 export type Length<T extends List> = T['length']
 
@@ -18,7 +20,9 @@ export type Promisable<T> = T | PromiseLike<T>;
 
 export type Promisify<T extends Function> = (...args: Parameters<T>) => Promise<Return<T>>
 
-export type Nullable<T = any> = T | undefined | null;
+export type Nullable<T> = T | undefined | null;
+
+export type NonNullable<U extends unknown> = Exclude<U, undefined | null>
 
 export type Optional<T> = T | undefined;
 

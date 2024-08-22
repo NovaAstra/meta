@@ -31,7 +31,7 @@ export class Pipeline<I, O> implements PipelineLike<I, O> {
         return this.dispatch(0, input);
     }
 
-    private dispatch(index: number, input: I): O {
+    public dispatch(index: number, input: I): O {
         if (index >= this.middlewares.length) return
 
         const fn = this.middlewares[index];
