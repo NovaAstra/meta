@@ -1,6 +1,8 @@
-export type Next<I, O> = (input?: I) => O;
+import { type Promisable } from "@meta-core/typeable"
 
-export type Middleware<I, O> = (input: I, next: Next<I, O>) => O;
+export type Next<I, O> = (input?: I) => Promisable<O>;
+
+export type Middleware<I, O> = (input: I, next: Next<I, O>) => Promisable<O>;
 
 export type Middlewares<I, O> = Middleware<I, O>[]
 
@@ -27,11 +29,11 @@ export class Pipeline<I, O> implements PipelineLike<I, O> {
         this.middlewares.push(...middlewares)
     }
 
-    public start(input: I): O {
+    public start(input: I): Promisable<O> {
         return this.dispatch(0, input);
     }
 
-    public dispatch(index: number, input: I): O {
+    public dispatch(index: number, input: I): Promisable<O> {
         if (index >= this.middlewares.length) return
 
         const fn = this.middlewares[index];

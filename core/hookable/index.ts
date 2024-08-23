@@ -1,4 +1,4 @@
-import { type Arguments,type Promisable } from "@meta-core/typeable"
+import { type Arguments, type Promisable } from "@meta-core/typeable"
 import { Pipeline } from "@meta-core/pipeable"
 
 export function unshift<R, I extends Arguments>(result: R, args: I): I {
@@ -8,7 +8,7 @@ export function unshift<R, I extends Arguments>(result: R, args: I): I {
 export abstract class HookFactory<I extends Arguments, O> {
     protected pipeline = new Pipeline<I, O>()
 
-    public call(...args: I): O {
+    public call(...args: I): Promisable<O> {
         return this.pipeline.start(args)
     }
 
@@ -81,13 +81,15 @@ export class AsyncSeriesHook<I extends Arguments, O = void> extends HookFactory<
     }
 }
 
-// export class AsyncSeriesBailHook<T, O> extends HookFactory<T, O> {
-//     public tap(callback) {
-//         this.use((input, next) => {
-//             callback(...input).then(result => result !== undefined ? result : next())
-//         })
-//     }
-// }
+export class AsyncSeriesBailHook<I extends Arguments, O = void> extends HookFactory<I, O> {
+    public tap(callback: (...args: I) => Promise<O>): void {
+        this.pipeline.use((input, next) => {
+            callback(...input).then(result => result !== undefined ? result : next())
+        })
+
+        return next()
+    }
+}
 
 // export class AsyncSeriesWaterfallHook<T, O> extends HookFactory<T, O> { }
 
