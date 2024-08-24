@@ -1,4 +1,4 @@
-import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook } from "."
+import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook, AsyncParallelBailHook } from "."
 
 const syncHook = new SyncHook()
 
@@ -86,4 +86,33 @@ syncLoopHook.tap((name, age) => {
     }
 })
 
-syncLoopHook.call('august.gao', '28')
+// syncLoopHook.call('august.gao', '28')
+
+const asyncParallelBailHook = new AsyncParallelBailHook()
+
+asyncParallelBailHook.tap((name, age) => {
+    console.log('EventA:', name, age)
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(undefined)
+        }, 1000)
+    })
+})
+
+asyncParallelBailHook.tap((name, age) => {
+    console.log('EventB:', name, age)
+    return new Promise(resolve => {
+        resolve(null)
+    })
+})
+
+asyncParallelBailHook.tap((name, age) => {
+    console.log('EventC:', name, age)
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(null)
+        }, 3000)
+    })
+})
+
+asyncParallelBailHook.call('august.gao', '28')

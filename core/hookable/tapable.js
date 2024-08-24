@@ -1,4 +1,4 @@
-import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook } from "tapable"
+import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook, AsyncParallelBailHook } from "tapable"
 
 const syncHook = new SyncHook(['name', 'age'])
 
@@ -65,17 +65,31 @@ syncLoopHook.tap('EventC', (name, age) => {
     console.log('EventC:', name, age)
 })
 
-syncLoopHook.call('august.gao', '28')
+// syncLoopHook.call('august.gao', '28')
 
+const asyncParallelBailHook = new AsyncParallelBailHook(['name', 'age'])
 
-this.goodsList.reduce((result, current) => {
-    const same = result.find(i => i.caseCode === current.caseCode)
+asyncParallelBailHook.tapAsync('EventA', (name, age, callback) => {
+    console.log('EventA:', name, age)
+    setTimeout(() => {
+        callback()
+    }, 1000)
+})
 
-    if (same) {
-        same.goodsInfo.push(current)
-    } else {
-        result.push({ ...current, goodsInfo: [current] })
-    }
+asyncParallelBailHook.tapAsync('EventB', (name, age, callback) => {
+    console.log('EventB:', name, age)
+    callback(null, '测试2有返回值啦')
+})
 
-    return result
-}, [])
+asyncParallelBailHook.tapAsync('EventC', (name, age, callback) => {
+    console.log('EventC:', name, age)
+    setTimeout(() => {
+        callback(null, '测试3有返回值啦')
+    }, 3000)
+})
+
+asyncParallelBailHook.callAsync('august.gao', '28', (err, result) => {
+    // 等全部都完成了才会走到这里来
+    console.log('这是成功后的回调', err, result)
+    console.timeEnd('time')
+})
