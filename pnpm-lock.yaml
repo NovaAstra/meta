@@ -54,6 +54,9 @@ importers:
       '@meta-core/codeable':
         specifier: workspace:*
         version: link:../codeable
+      '@meta-core/hookable':
+        specifier: workspace:*
+        version: link:../hookable
 
   core/typeable: {}
 

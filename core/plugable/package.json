@@ -6,6 +6,7 @@
     "main": "index.ts",
     "types": "index.d.ts",
     "dependencies": {
-        "@meta-core/codeable":"workspace:*"
+        "@meta-core/codeable": "workspace:*",
+        "@meta-core/hookable": "workspace:*"
     }
 }

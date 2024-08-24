@@ -1,3 +1,8 @@
+import { type HookFactory } from "@meta-core/hookable"
+
+export type Hook = HookFactory<any[], any>
+
+export type Hooks = Record<string, Hook>
 
 export type Setup<Hooks, API> = (api: API) => void
 
