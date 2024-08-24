@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 export type Setup<Hooks, API> = (api: API) => void
 
