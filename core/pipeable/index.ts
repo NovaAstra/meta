@@ -10,14 +10,26 @@ export type MiddlewareInput<I, O> = Middleware<I, O> | Middlewares<I, O> | Pipel
 
 export type PipelineLike<I, O> = { middlewares: Middlewares<I, O> };
 
+export function isMiddlewareValid<I, O>(middlewares: any[]): Middlewares<I, O> {
+    for (const middleware of middlewares) {
+        if (typeof middleware !== 'function')
+            throw new TypeError(`${middleware} must be composed of functions!`)
+    }
+
+    return middlewares
+}
+
 export function getMiddlewares<I, O>(input: MiddlewareInput<I, O>): Middlewares<I, O> {
-    if (typeof input === 'function') return [input];
+    if (typeof input === 'function')
+        return [input];
 
-    if (Array.isArray(input)) return input
+    if (Array.isArray(input))
+        return this.isMiddlewareValid(input)
 
-    if (input.middlewares) return input.middlewares
+    if (Array.isArray(input.middlewares))
+        return this.isMiddlewareValid(input.middlewares)
 
-    throw new Error(`${input} is not a valid MiddlewareInput`);
+    throw new TypeError(`${input} is not a valid MiddlewareInput!`);
 }
 
 export class Pipeline<I, O> implements PipelineLike<I, O> {

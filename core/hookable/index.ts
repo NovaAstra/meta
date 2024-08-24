@@ -56,7 +56,7 @@ export class SyncLoopHook<I extends Arguments, O = void> extends HookFactory<I, 
 
 export class AsyncParallelHook<I extends Arguments, O = void> extends HookFactory<I, O> {
     public tap(callback: (...args: I) => O): void {
-        this.pipeline.use((input, next) => {
+        this.pipeline.use(async (input, next) => {
             callback(...input)
             return next()
         })
@@ -65,17 +65,17 @@ export class AsyncParallelHook<I extends Arguments, O = void> extends HookFactor
 
 export class AsyncParallelBailHook<I extends Arguments, O = void> extends HookFactory<I, O> {
     public tap(callback: (...args: I) => O): void {
-        this.pipeline.use((input, next) => {
-            callback(...input)
-            return next()
+        this.pipeline.use(async (input, next) => {
+            const result = await callback(...input)
+            if (result !== undefined) return next()
         })
     }
 }
 
 export class AsyncSeriesHook<I extends Arguments, O = void> extends HookFactory<I, O> {
     public tap(callback: (...args: I) => Promise<O>): void {
-        this.pipeline.use((input, next) => {
-            callback(...input).then(() => next())
+        this.pipeline.use(async (input, next) => {
+            await callback(...input)
             return next()
         })
     }
@@ -83,13 +83,20 @@ export class AsyncSeriesHook<I extends Arguments, O = void> extends HookFactory<
 
 export class AsyncSeriesBailHook<I extends Arguments, O = void> extends HookFactory<I, O> {
     public tap(callback: (...args: I) => Promise<O>): void {
-        this.pipeline.use((input, next) => {
-            callback(...input).then(result => result !== undefined ? result : next())
+        this.pipeline.use(async (input, next) => {
+            const result = await callback(...input)
+            return result !== undefined ? result : next()
         })
-
-        return next()
     }
 }
 
-// export class AsyncSeriesWaterfallHook<T, O> extends HookFactory<T, O> { }
+export class AsyncSeriesWaterfallHook<I extends Arguments, O = void> extends HookFactory<I, O> {
+    public tap(callback: (...args: I) => Promise<O>): void {
+        this.pipeline.use(async (input, next) => {
+            const result = await callback(...input)
+            const nextInput = unshift(result, input)
+            return next(nextInput)
+        })
+    }
+}
 
