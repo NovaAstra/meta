@@ -30,8 +30,6 @@ export function createScheduler(hooks, models) {
         scheduler[key] = models[key].run.bind(models[key])
     }
 
-
-
     return scheduler;
 }
 
