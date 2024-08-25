@@ -5,11 +5,12 @@ const a = [
     },
     {
         name: "plugin2",
-        pre: ["plugin8", "plugin7"]
+        pre: ["plugin8", "plugin7"],
+        post: ["plugin4"]
     },
     {
         name: 'plugin3',
-        pre: ['plugin5']
+        pre: ['plugin5', 'plugin8']
     },
     {
         name: 'plugin4'
@@ -65,34 +66,36 @@ const pluginDagSort = (
         item => !allLines.find(l => l[1] === item[key]),
     );
 
+    console.log(zeroEndPoints, allLines)
+
     const sortedPoint = [];
-    while (zeroEndPoints.length) {
-        const zep = zeroEndPoints.shift();
-        sortedPoint.push(getPluginByAny(zep));
-        allLines = allLines.filter(l => l[0] !== getPluginByAny(zep)[key]);
+    // while (zeroEndPoints.length) {
+    //     const zep = zeroEndPoints.shift();
+    //     sortedPoint.push(getPluginByAny(zep));
+    //     allLines = allLines.filter(l => l[0] !== getPluginByAny(zep)[key]);
 
-        const restPoints = plugins.filter(
-            item => !sortedPoint.find(sp => sp[key] === item[key]),
-        );
-        zeroEndPoints = restPoints.filter(
-            item => !allLines.find(l => l[1] === item[key]),
-        );
-    }
+    //     const restPoints = plugins.filter(
+    //         item => !sortedPoint.find(sp => sp[key] === item[key]),
+    //     );
+    //     zeroEndPoints = restPoints.filter(
+    //         item => !allLines.find(l => l[1] === item[key]),
+    //     );
+    // }
 
-    if (allLines.length) {
-        const restInRingPoints = {};
-        allLines.forEach(l => {
-            restInRingPoints[l[0]] = true;
-            restInRingPoints[l[1]] = true;
-        });
+    // if (allLines.length) {
+    //     const restInRingPoints = {};
+    //     allLines.forEach(l => {
+    //         restInRingPoints[l[0]] = true;
+    //         restInRingPoints[l[1]] = true;
+    //     });
 
-        throw new Error(
-            `plugins dependencies has loop: ${Object.keys(restInRingPoints).join(
-                ',',
-            )}`,
-        );
-    }
+    //     throw new Error(
+    //         `plugins dependencies has loop: ${Object.keys(restInRingPoints).join(
+    //             ',',
+    //         )}`,
+    //     );
+    // }
     return sortedPoint;
 };
 
-console.log(pluginDagSort(a))
+pluginDagSort(a)
