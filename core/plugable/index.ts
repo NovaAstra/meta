@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import { type HookFactory } from "@meta-core/hookable"
 
 export type Hook = HookFactory<any[], any>
@@ -17,9 +19,15 @@ export type PluginOptions<Hooks, Setup = undefined> = {
     registerHook?: Partial<Hooks>;
 }
 
-
 export type Plugin<Hooks, API> = Required<PluginOptions<Hooks, Setup<Hooks, API>>>
 
+export function sortPlugins(plugins) {
+    const p = []
+    for (const plugin of plugins) {
+        const post = plugin.post
+        const pre = plugin.pre
+    }
+}
 
 export function createScheduler(hooks, models) {
     const scheduler = Object.create(null)
