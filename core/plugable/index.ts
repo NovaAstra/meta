@@ -21,13 +21,6 @@ export type PluginOptions<Hooks, Setup = undefined> = {
 
 export type Plugin<Hooks, API> = Required<PluginOptions<Hooks, Setup<Hooks, API>>>
 
-export function sortPlugins(plugins) {
-    const p = []
-    for (const plugin of plugins) {
-        const post = plugin.post
-        const pre = plugin.pre
-    }
-}
 
 export function createScheduler(hooks, models) {
     const scheduler = Object.create(null)
