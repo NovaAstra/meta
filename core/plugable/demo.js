@@ -17,20 +17,25 @@ const data = [
 
 
 function sortPlugins(plugins) {
-    const graph = {}
-    const inDegree = {}
+    const graph = new Map()
+    const inDegree = new Map()
 
-    plugins.forEach(plugin => {
-        graph[plugin.name] = []
-        inDegree[plugin.name] = 0
+    plugins.forEach(({ name }) => {
+        graph.set(name, []);
+        inDegree.set(name, 0);
     });
 
     plugins.forEach(({ name, pre = [], post = [] }) => {
         pre.forEach(dep => {
             graph.get(dep).push(name)
+            inDegree.set(name, (inDegree.get(name) || 0) + 1);
         })
         post.forEach(dep => {
             graph.get(name).push(dep)
         })
     })
+
+    console.log(graph)
 }
+
+sortPlugins(data)
