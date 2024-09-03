@@ -6,6 +6,6 @@ export function useTableObserver() {
     return {
         observeRoot() { },
         observeCell() { },
-        dispose() { }
+        dispose: observer.disconnect
     }
 }
