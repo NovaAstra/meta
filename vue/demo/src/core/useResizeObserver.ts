@@ -1,13 +1,13 @@
 import { useDocument } from "./useDocument"
 import { useWindow } from "./useWindow"
 
-export interface ObserverEvent {
+export interface Observer {
     observe(element: HTMLElement, callback?: ResizeObserverCallback): ResizeObserver | undefined;
     unobserve(element: HTMLElement): void;
     disconnect(): void;
 }
 
-export function useResizeObserver(globalCallback: ResizeObserverCallback): ObserverEvent {
+export function useResizeObserver(globalCallback: ResizeObserverCallback): Observer {
     let observer: ResizeObserver | undefined
 
     return Object.freeze({
