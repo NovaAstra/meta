@@ -7,16 +7,24 @@ export interface Observer {
     disconnect(): void;
 }
 
-export function useResizeObserver(globalCallback: ResizeObserverCallback): Observer {
+export function useResizeObserver(globalCallback?: ResizeObserverCallback): Observer {
     let observer: ResizeObserver | undefined
 
     return Object.freeze({
         observe(element: HTMLElement, callback?: ResizeObserverCallback): ResizeObserver | undefined {
             if (!(element instanceof Element)) {
-                console.error(`${element} is not a valid observable element.`);
+                console.error(`${element} is not a valid observable HTMLElement.`);
                 return;
             }
-            if (!observer) observer = new (useWindow(useDocument(element))).ResizeObserver(callback || globalCallback)
+
+            const cb: ResizeObserverCallback = (...args: Parameters<ResizeObserverCallback>): void => {
+                if (callback) return callback(...args)
+                if (globalCallback) return globalCallback(...args)
+
+                console.warn(`${element} lacks a callback for observing size changes.`);
+            }
+
+            if (!observer) observer = new (useWindow(useDocument(element))).ResizeObserver(cb)
             observer.observe(element)
             return observer
         },
