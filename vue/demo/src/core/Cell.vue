@@ -30,8 +30,12 @@ const style = computed<CSSProperties>(() => ({
 
 watch(
     () => elRef.value,
-    () => {
+    (_, __, onCleanup) => {
         console.log(1)
+
+        onCleanup(() => {
+            console.log(2)
+        })
     },
     {
         flush: "post"
