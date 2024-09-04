@@ -21,11 +21,8 @@ const elRef = ref<HTMLElement>()
 
 const style = computed<CSSProperties>(() => ({
     display: 'grid',
-    position: 'absolute',
-    width: props.width,
-    height: props.height,
-    top: props.top,
-    left: props.left
+    width: props.width + 'px',
+    height: props.height + 'px'
 }))
 
 watch(
