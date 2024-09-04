@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { CSSProperties, type IntrinsicElementAttributes, computed } from "vue"
+import { CSSProperties, type IntrinsicElementAttributes, computed, watch } from "vue"
+import { type Observer } from "./useTableObserver"
 
 export type DOMElements = keyof IntrinsicElementAttributes
 
@@ -8,11 +9,12 @@ export interface CellProps {
     height: number;
     left: number;
     top: number;
-    tag?: DOMElements,
+    observer: Observer
+    element?: DOMElements,
 }
 
 const props = withDefaults(defineProps<CellProps>(), {
-    tag: 'div'
+    element: 'div'
 })
 
 const style = computed<CSSProperties>(() => ({
@@ -23,5 +25,5 @@ const style = computed<CSSProperties>(() => ({
 </script>
 
 <template>
-    <component :is="tag" :style="style"></component>
+    <component :is="element" :style="style"></component>
 </template>

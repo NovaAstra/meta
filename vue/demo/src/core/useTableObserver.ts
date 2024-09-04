@@ -15,3 +15,5 @@ export function useTableObserver() {
         }
     }
 }
+
+export type Observer = ReturnType<typeof useTableObserver>
