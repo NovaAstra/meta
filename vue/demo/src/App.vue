@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <table class="viewport">
+    <div class="viewport">
 
-    </table>
+    </div>
 </template>
