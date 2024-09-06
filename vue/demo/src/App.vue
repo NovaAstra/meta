@@ -22,7 +22,7 @@ onMounted(() => {
 .viewport {
    width: 500px;
    height: 500px;
-   overflow: auto;
+   overflow: hidden;
    border: 1px solid red;
    position: relative;
 }
