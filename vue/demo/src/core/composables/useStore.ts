@@ -1,18 +1,23 @@
-import { useModel } from "./useModel"
+import { type Model, useModel } from "./useModel"
+
 
 export function useStore(count: number, size: number) {
-    const model = useModel(count, size)
+    const viewport: number = 0
 
-    const getRange = () => { }
-
-    const getSizes = () => { }
-
-    const update = () => { }
+    const model: Model = useModel(count, size)
 
     return {
-        getRange,
-        getSizes,
-        update
+        getRange() {
+
+        },
+        getSizes() { },
+        getLength(): number {
+            return model.length
+        },
+        getViewport(): number {
+            return viewport
+        },
+        update() { }
     }
 }
 
