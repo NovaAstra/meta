@@ -18,7 +18,7 @@ export function useTableObserver() {
             if (!(target as HTMLElement).offsetParent) continue;
 
             if (target === root) {
-
+                
             }
         }
     })

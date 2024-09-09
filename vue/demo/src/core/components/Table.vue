@@ -2,11 +2,12 @@
 import { ref, onMounted } from "vue";
 
 import { type TableObserver, useTableObserver } from "../composables/useTableObserver"
+import { useStore } from "../composables/useStore"
 
 import Rows from "./Rows"
 import { createContext } from "./useContext"
 
-defineProps({
+const props = defineProps({
     rows: { type: Number, required: true },
     cols: { type: Number, required: true },
     size: {
@@ -17,6 +18,7 @@ defineProps({
 
 const elRef = ref<HTMLElement>()
 
+const hStore = useStore(props.rows, props.size[1])
 const observer: TableObserver = useTableObserver()
 
 onMounted(() => {

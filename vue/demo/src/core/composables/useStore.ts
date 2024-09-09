@@ -1,5 +1,13 @@
 import { type Model, useModel } from "./useModel"
 
+export enum ActionEnum {
+    VIEWPORT,
+    LENGTH
+}
+
+export type Actions =
+    | [action: ActionEnum.VIEWPORT, size: number]
+    | [action: ActionEnum.LENGTH, length: number]
 
 export function useStore(count: number, size: number) {
     const viewport: number = 0
@@ -17,7 +25,13 @@ export function useStore(count: number, size: number) {
         getViewport(): number {
             return viewport
         },
-        update() { }
+        update(...args: Actions) {
+            const [action] = args
+            switch (action) {
+                case ActionEnum.VIEWPORT:
+                case ActionEnum.LENGTH:
+            }
+        }
     }
 }
 

@@ -2,7 +2,6 @@ import { type InjectionKey, provide, inject } from "vue"
 
 import { type TableObserver } from "../composables/useTableObserver"
 
-
 export interface Context {
     observer: TableObserver;
 }
