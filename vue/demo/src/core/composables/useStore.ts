@@ -1,4 +1,8 @@
-export function useStore() {
+import { useModel } from "./useModel"
+
+export function useStore(count: number, size: number) {
+    const model = useModel(count, size)
+
     const getRange = () => { }
 
     const getSizes = () => { }

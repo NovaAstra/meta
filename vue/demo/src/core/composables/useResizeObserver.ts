@@ -34,3 +34,5 @@ export function useResizeObserver(globalCallback?: ResizeObserverCallback) {
         }
     })
 }
+
+export type Observer = ReturnType<typeof useResizeObserver>
