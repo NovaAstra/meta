@@ -1,19 +1,26 @@
 <script lang="ts" setup>
-import { type PropType } from "vue"
+import { ref, onMounted } from "vue";
 
-import { type Size, useTable } from "./useTable"
+import { useTable } from "../composables/useTable"
+
 import Rows from "./Rows"
 
-const props = defineProps({
+defineProps({
     rows: { type: Number, required: true },
     cols: { type: Number, required: true },
     size: {
-        type: [Number, Array] as PropType<Size>,
+        type: [Number, Array],
         default: [60, 30]
     }
 })
 
-const { root } = useTable(props)
+const root = ref<HTMLElement>()
+
+const { observeRoot } = useTable()
+
+onMounted(() => {
+    observeRoot(root.value!)
+})
 </script>
 
 <template>

@@ -1,7 +1,5 @@
 export function useStore() {
-    const getRange = () => {
-        return [0, 1]
-    }
+    const getRange = () => { }
 
     const getSizes = () => { }
 
@@ -13,3 +11,5 @@ export function useStore() {
         update
     }
 }
+
+export type Store = ReturnType<typeof useStore>
