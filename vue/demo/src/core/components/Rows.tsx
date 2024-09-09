@@ -25,7 +25,7 @@ export const Rows = defineComponent({
                     Cells.push(<Cell key={cidx}>{slots?.default?.({ cidx, ridx })}</Cell>)
                 }
 
-                Rows.push(<Row key={ridx}>{Cells}</Row>)
+                Rows.push(<Row key={ridx} index={ridx}>{Cells}</Row>)
             }
 
             return Rows

@@ -7,8 +7,7 @@ export function useObserver(element: HTMLElement, observer: Observer) {
     }
 }
 
-
-export function useTable() {
+export function useTableObserver() {
     let root: HTMLElement | undefined;
 
     const visRows = new WeakMap<HTMLElement, number>()
@@ -26,6 +25,7 @@ export function useTable() {
 
     const bind = (weakMap: WeakMap<HTMLElement, number>) =>
         (element: HTMLElement, index: number) => {
+            console.log(element,"element")
             weakMap.set(element, index);
             observer.observe(element);
             return () => {
@@ -43,3 +43,5 @@ export function useTable() {
         dispose: observer.dispose
     })
 }
+
+export type TableObserver = ReturnType<typeof useTableObserver>
