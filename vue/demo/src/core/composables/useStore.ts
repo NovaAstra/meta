@@ -1,13 +1,12 @@
 import { type Model, useModel } from "./useModel"
+import { ActionEnum } from "./constants"
 
-export enum ActionEnum {
-    VIEWPORT,
-    LENGTH
-}
+export type ItemResize = Readonly<[index: number, size: number]>;
 
 export type Actions =
-    | [action: ActionEnum.VIEWPORT, viewport: number]
+    | [action: ActionEnum.VIEWPORT, size: number]
     | [action: ActionEnum.LENGTH, length: number]
+    | [action: ActionEnum.ELEMENT, entries: ItemResize[]]
 
 export function useStore(length: number, size: number) {
     let viewport: number = 0
