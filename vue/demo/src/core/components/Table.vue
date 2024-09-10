@@ -18,8 +18,9 @@ const props = defineProps({
 
 const elRef = ref<HTMLElement>()
 
-const hStore = useStore(props.rows, props.size[1])
-const observer: TableObserver = useTableObserver()
+const hs = useStore(props.rows, props.size[1])
+const vs = useStore(props.cols, props.size[0])
+const observer: TableObserver = useTableObserver(hs, vs)
 
 onMounted(() => {
     observer.observeRoot(elRef.value!)

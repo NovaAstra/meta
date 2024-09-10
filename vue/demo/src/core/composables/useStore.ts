@@ -6,13 +6,13 @@ export enum ActionEnum {
 }
 
 export type Actions =
-    | [action: ActionEnum.VIEWPORT, size: number]
+    | [action: ActionEnum.VIEWPORT, viewport: number]
     | [action: ActionEnum.LENGTH, length: number]
 
-export function useStore(count: number, size: number) {
-    const viewport: number = 0
+export function useStore(length: number, size: number) {
+    let viewport: number = 0
 
-    const model: Model = useModel(count, size)
+    const model: Model = useModel(length, size)
 
     return {
         getRange() {
@@ -26,9 +26,13 @@ export function useStore(count: number, size: number) {
             return viewport
         },
         update(...args: Actions) {
-            const [action] = args
+            const [action, payload] = args
             switch (action) {
                 case ActionEnum.VIEWPORT:
+                    if (payload !== viewport) {
+                        viewport = payload
+                    }
+                    break;
                 case ActionEnum.LENGTH:
             }
         }
