@@ -1,6 +1,6 @@
 import { type Observer, useResizeObserver } from "./useResizeObserver"
-import { type Store, ActionEnum } from "./useStore"
-import { WIDTH_KEY, HEIGHT_KEY, AxisEnum } from "./constants"
+import { type Store } from "./useStore"
+import { WIDTH_KEY, HEIGHT_KEY, AxisEnum, ActionEnum } from "./constants"
 
 export function useObserver(element: HTMLElement, observer: Observer) {
     observer.observe(element);
