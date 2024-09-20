@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 import { Tbody } from "./Tbody"
 
@@ -13,6 +13,13 @@ defineProps({
 })
 
 const elRef = ref<HTMLElement>()
+
+onMounted(() => {
+    elRef.value!.addEventListener('scroll', () => {
+        console.log(elRef.value!.scrollTop)
+    })
+})
+
 
 </script>
 

@@ -1,21 +1,12 @@
 import { type Model, useModel } from "./useModel"
 
+export type Range = Readonly<[startIndex: number, endIndex: number]>;
+
 export class Store {
-    private viewport: number = 0
-
-    public constructor(private readonly model: Model) { }
-
-    public getLength(): number {
-        return this.model.length
-    }
-
-    public getViewport(): number {
-        return this.viewport
-    }
-
-    public updateViewport(viewport: number): void {
-        this.viewport = viewport
-    }
+    public constructor(
+        public readonly model: Model,
+        public viewport: number = 0
+    ) { }
 }
 
 
