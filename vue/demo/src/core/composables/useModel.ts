@@ -1,23 +1,21 @@
-export type Model = {
-    readonly size: number;
-    readonly length: number;
-    readonly indices: number[]
+export class Model {
+    public constructor(
+        public readonly defaultSize: number = 40,
+        public readonly length: number = 0,
+        public indices: number[] = [],
+    ) { }
+
+    public at(index: number): number {
+        const size = this.indices[index]!
+        return size ? size : this.defaultSize
+    }
+
+    public set(index: number, size: number) {
+        this.indices[index] = size
+    }
 }
 
-export const UNCACHED = -1;
 
-export function fill(array: number[], length: number, prepend?: boolean): number[] {
-    const key = prepend ? "unshift" : "push";
-    for (let i = 0; i < length; i++) {
-        array[key](UNCACHED);
-    }
-    return array;
-}
-
-export function useModel(length: number, size: number): Model {
-    return {
-        size,
-        length,
-        indices: fill([], length)
-    }
+export function useModel(size: number, length: number): Model {
+    return new Model(size, length)
 }

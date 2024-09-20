@@ -8,7 +8,7 @@ export enum RoleEnum {
 }
 
 export enum ActionEnum {
-    VIEWPORT_RESIZE,
-    ROW_RESIZE,
+    VIEWPORT,
+    ROW,
     LENGTH
 }

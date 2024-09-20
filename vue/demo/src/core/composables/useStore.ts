@@ -1,44 +1,26 @@
 import { type Model, useModel } from "./useModel"
-import { ActionEnum } from "./constants"
 
-export type ItemResize = Readonly<[index: number, size: number]>;
+export class Store {
+    private viewport: number = 0
 
-export type Actions =
-    | [action: ActionEnum.VIEWPORT_RESIZE, size: number]
-    | [action: ActionEnum.LENGTH, length: number]
-    | [action: ActionEnum.ROW_RESIZE, size: number]
+    public constructor(private readonly model: Model) { }
 
-export function useStore(length: number, size: number) {
-    let viewport: number = 0
+    public getLength(): number {
+        return this.model.length
+    }
 
-    const model: Model = useModel(length, size)
+    public getViewport(): number {
+        return this.viewport
+    }
 
-    return {
-        getRange() {
-
-        },
-        getSizes() { },
-        getLength(): number {
-            return model.length
-        },
-        getViewport(): number {
-            return viewport
-        },
-        update(...args: Actions) {
-            const [action, payload] = args
-            switch (action) {
-                case ActionEnum.VIEWPORT_RESIZE:
-                    if (payload !== viewport) {
-                        viewport = payload
-                    }
-                    break;
-                case ActionEnum.ROW_RESIZE:
-                    break;
-                case ActionEnum.LENGTH:
-                    break;
-            }
-        }
+    public updateViewport(viewport: number): void {
+        this.viewport = viewport
     }
 }
 
-export type Store = ReturnType<typeof useStore>
+
+export function useStore(length: number, size: number) {
+    const model: Model = useModel(size, length)
+
+    return new Store(model)
+}
