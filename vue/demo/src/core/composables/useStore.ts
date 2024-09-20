@@ -4,9 +4,9 @@ import { ActionEnum } from "./constants"
 export type ItemResize = Readonly<[index: number, size: number]>;
 
 export type Actions =
-    | [action: ActionEnum.VIEWPORT, size: number]
+    | [action: ActionEnum.VIEWPORT_RESIZE, size: number]
     | [action: ActionEnum.LENGTH, length: number]
-    | [action: ActionEnum.ELEMENT, entries: ItemResize[]]
+    | [action: ActionEnum.ROW_RESIZE, size: number]
 
 export function useStore(length: number, size: number) {
     let viewport: number = 0
@@ -27,12 +27,15 @@ export function useStore(length: number, size: number) {
         update(...args: Actions) {
             const [action, payload] = args
             switch (action) {
-                case ActionEnum.VIEWPORT:
+                case ActionEnum.VIEWPORT_RESIZE:
                     if (payload !== viewport) {
                         viewport = payload
                     }
                     break;
+                case ActionEnum.ROW_RESIZE:
+                    break;
                 case ActionEnum.LENGTH:
+                    break;
             }
         }
     }

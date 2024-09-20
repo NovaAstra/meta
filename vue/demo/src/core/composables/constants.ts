@@ -2,13 +2,13 @@ export const WIDTH_KEY = 'width'
 
 export const HEIGHT_KEY = 'height'
 
-export enum AxisEnum {
+export enum RoleEnum {
     ROW = 'row',
-    COL = 'col'
+    CELL = 'gridcell'
 }
 
 export enum ActionEnum {
-    VIEWPORT,
-    ELEMENT,
+    VIEWPORT_RESIZE,
+    ROW_RESIZE,
     LENGTH
 }

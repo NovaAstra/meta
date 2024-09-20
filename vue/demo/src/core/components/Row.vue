@@ -4,11 +4,10 @@ import Element from "./Element.vue"
 import { useContext } from "./useContext"
 
 export interface RowProps {
-    index: number;
     element?: 'tr'
 }
 
-const props = withDefaults(defineProps<RowProps>(), {
+withDefaults(defineProps<RowProps>(), {
     element: "tr"
 })
 
@@ -17,12 +16,12 @@ const instance = getCurrentInstance()!;
 const { observer } = useContext()
 
 onMounted(() => {
-    observer.observeRow(instance.proxy!.$el, props.index)
+    observer.observeRow(instance.proxy!.$el)
 })
 </script>
 
 <template>
-    <Element :element="element" :data-row="index">
+    <Element :element="element">
         <slot></slot>
     </Element>
 </template>

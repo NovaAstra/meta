@@ -4,7 +4,7 @@ import { ref, onMounted } from "vue";
 import { type TableObserver, useTableObserver } from "../composables/useTableObserver"
 import { useStore } from "../composables/useStore"
 
-import Rows from "./Rows"
+import { Tbody } from "./Tbody"
 import { createContext } from "./useContext"
 
 const props = defineProps({
@@ -30,13 +30,13 @@ createContext({ observer })
 </script>
 
 <template>
-    <div class="meta-table-root" ref="elRef">
+    <div class="meta-table-root" ref="elRef" role="grid">
         <div class="meta-table-scroll-clip">
-            <table border="1" cellspacing="0">
-                <Rows :observer="observer" :start-col="0" :end-col="50" :start-row="0" :end-row="50"
-                    v-slot="{ cidx, ridx }">
-                    {{ cidx }} * {{ ridx }}
-                </Rows>
+            <table border="1" cellspacing="0" >
+                <Tbody :observer="observer" :start-col="0" :end-col="50" :start-row="0" :end-row="50"
+                    v-slot="{ rowIndex, colIndex }">
+                    {{ colIndex }} * {{ rowIndex }}
+                </Tbody>
             </table>
         </div>
         <div class="meta-table-virtual-panel"></div>
