@@ -6,4 +6,6 @@ export class Store {
     public constructor(
         public model: Model
     ) { }
+
+    public getRange() { }
 }
