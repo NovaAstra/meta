@@ -1,12 +1,14 @@
 import { type Store } from "./store"
 
+export type Viewport = HTMLElement | Window
+
 export class ScrollEventModel {
     public constructor(
-        private store: Store,
-        private viewport?: HTMLElement | null
+        public store: Store,
+        private viewport: Viewport | null | undefined,
     ) { }
 
-    public attach(viewport?: HTMLElement): () => true {
+    public attach(viewport?: Viewport): () => true {
         if (!this.viewport && !viewport)
             console.warn('The scroll panel element is missing or unavailable.')
 
@@ -17,8 +19,8 @@ export class ScrollEventModel {
         if (viewport) this.viewport = viewport
 
         if (this.viewport) {
-            this.viewport.addEventListener('scroll', this.onScroll.bind(this), { passive: true })
-            this.viewport.addEventListener('wheel', this.onWheel.bind(this))
+            this.viewport.addEventListener('scroll', this.onScroll.bind(this))
+            this.viewport.addEventListener('wheel', this.onWheel.bind(this), { passive: true })
         }
 
         return this.detach
@@ -37,16 +39,11 @@ export class ScrollEventModel {
         return true
     }
 
-    private onScroll(event: Event) {
-        event.stopPropagation();
-
+    private onScroll() {
         console.log(1)
     }
 
-    private onWheel(event: WheelEvent) {
-        event.preventDefault()
-
-        console.log(event.deltaY)
-
+    private onWheel() {
+        console.log(2)
     }
 }

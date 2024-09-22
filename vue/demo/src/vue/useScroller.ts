@@ -1,7 +1,8 @@
 import { ScrollEventModel } from "../core/scroller"
+import { type Store } from "../core/store"
 
-export function useScroller() {
-    const scroller = new ScrollEventModel()
+export function useScroller(store: Store) {
+    const scroller = new ScrollEventModel(store, undefined)
 
     return {
         observe(viewport: HTMLElement) {
