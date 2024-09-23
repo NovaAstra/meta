@@ -1,12 +1,11 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useScroller } from "../vue/useScroller"
-import { useStore } from "../vue/useStore"
+
 
 export function useList() {
     const root = ref<HTMLElement>()
 
-    const store = useStore()
-    const scroller = useScroller(store)
+    const scroller = useScroller()
 
     onMounted(() => {
         scroller.observe(root.value!)
@@ -18,6 +17,5 @@ export function useList() {
 
     return {
         root,
-        store
     }
 }

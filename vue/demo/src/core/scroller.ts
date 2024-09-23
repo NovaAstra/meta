@@ -1,10 +1,7 @@
-import { type Store } from "./store"
-
 export type Viewport = HTMLElement | Window
 
 export class ScrollEventModel {
     public constructor(
-        public store: Store,
         private viewport?: Viewport | null,
     ) { }
 
@@ -57,6 +54,7 @@ export class ScrollEventModel {
 
 function onScroll(this: ScrollEventModel, event: Event) {
     event.stopPropagation()
+    console.log(11)
 }
 
 function onWheel(this: ScrollEventModel, event: Event) {
