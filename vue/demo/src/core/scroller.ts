@@ -5,10 +5,10 @@ export type Viewport = HTMLElement | Window
 export class ScrollEventModel {
     public constructor(
         public store: Store,
-        private viewport: Viewport | null | undefined,
+        private viewport?: Viewport | null,
     ) { }
 
-    public attach(viewport?: Viewport): () => true {
+    public attach(viewport?: Viewport): () => boolean {
         if (!this.viewport && !viewport)
             console.warn('The scroll panel element is missing or unavailable.')
 
@@ -16,19 +16,29 @@ export class ScrollEventModel {
             this.detach()
         }
 
+        if (!(viewport instanceof Element)) {
+            console.error(`${viewport} is not a valid HTMLElement.`);
+            return () => false;
+        }
+
         if (viewport) this.viewport = viewport
 
         if (this.viewport) {
-            this.viewport.addEventListener('scroll', this.onScroll.bind(this))
-            this.viewport.addEventListener('wheel', this.onWheel.bind(this), { passive: true })
+            this.viewport.addEventListener('scroll', this.onScroll, { passive: true })
+            this.viewport.addEventListener('wheel', this.onWheel)
         }
 
         return this.detach
     }
 
-    public detach(): true {
+    public detach(): boolean {
         if (!this.viewport)
             console.warn('The scroll panel element is missing or unavailable.')
+
+        if (!(this.viewport instanceof Element)) {
+            console.error(`${this.viewport} is not a valid HTMLElement.`);
+            return false;
+        }
 
         if (this.viewport) {
             this.viewport.removeEventListener("scroll", this.onScroll)
@@ -39,11 +49,16 @@ export class ScrollEventModel {
         return true
     }
 
-    private onScroll() {
-        console.log(1)
-    }
+    private onScroll = onScroll.bind(this)
 
-    private onWheel() {
-        console.log(2)
-    }
+    private onWheel = onWheel.bind(this)
+}
+
+
+function onScroll(this: ScrollEventModel, event: Event) {
+    event.stopPropagation()
+}
+
+function onWheel(this: ScrollEventModel, event: Event) {
+    event.preventDefault()
 }

@@ -8,7 +8,7 @@ export function useScroller(store: Store) {
         observe(viewport: HTMLElement) {
             return scroller.attach(viewport)
         },
-        dispose(): true {
+        dispose(): boolean {
             return scroller.detach()
         }
     }
