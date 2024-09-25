@@ -1,16 +1,25 @@
-export class ScrollViewModel {
-    public constructor(public viewport?: HTMLElement) {
+type Truly = () => true
+
+const truly: Truly = () => true
+
+export class ScrollEventModel {
+    public constructor(public viewport?: HTMLElement, public update?: (offset: number) => void) {
         if (viewport && !(viewport instanceof Element))
             console.error(`${viewport} is not a valid scroll view element.`)
     }
 
-    public attach(viewport?: HTMLElement): () => true {
-        if (!viewport && !this.viewport)
+    public attach(viewport?: HTMLElement): Truly {
+        if (!viewport && !this.viewport) {
             console.error(`Please ensure the scroll view is attached to enable scrolling functionality.`)
+            return truly
+        }
 
 
-        if (viewport && !(viewport instanceof Element))
+        if (viewport && !(viewport instanceof Element)) {
             console.error(`${viewport} is not a valid scroll view element.`)
+            return truly
+        }
+
 
         this.detach()
 
@@ -35,17 +44,17 @@ export class ScrollViewModel {
         return true
     }
 
-    private onScroll: (event: Event) => void = onScroll.bind(this)
+    private readonly onScroll: (event: Event) => void = onScroll.bind(this)
 
-    private onWheel: (event: WheelEvent) => void = onWheel.bind(this)
+    private readonly onWheel: (event: WheelEvent) => void = onWheel.bind(this)
 }
 
-function onScroll(this: ScrollViewModel, event: Event) {
+function onScroll(this: ScrollEventModel, event: Event) {
     event.stopPropagation()
-    console.log(this.viewport!.scrollTop)
+
+    this.update!(this.viewport!.scrollTop)
 }
 
-function onWheel(this: ScrollViewModel, event: WheelEvent) {
+function onWheel(this: ScrollEventModel, event: WheelEvent) {
     event.preventDefault()
-
 }

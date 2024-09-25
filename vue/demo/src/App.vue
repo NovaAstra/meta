@@ -22,4 +22,14 @@ import { List } from "./List"
    width: 100%;
    height: 100%;
 }
+
+.list-scroll-clip {
+   position: sticky;
+   contain: strict;
+   overflow-anchor: none;
+   width: 100%;
+   height: 100%;
+   top: 0px;
+   left: 0px;
+}
 </style>
