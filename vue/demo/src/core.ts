@@ -1,28 +1,48 @@
-export type Snapshot = [indices: number[], override: number[], size: number]
+export type Snapshot = [size: number, indices: number[], override: number[]]
 
-export const DEFAULT_SIZE = 60
+export const ESTIMATED_DEFAULT_SIZE = 60;
 
 export class ViewModel {
-    public size: number = DEFAULT_SIZE
+    public offset: number[] = []
 
-    public length: number = 0
+    public indices: number[] = []
 
-    public indices: Float32Array = new Float32Array()
-
-    public override: Float32Array = new Float32Array()
-
-    public readonly snapshot?: Snapshot
+    public override: number[] = []
 
     public constructor(
-        size: number,
-        length: number,
-        snapshot?: Snapshot
+        public size: number = ESTIMATED_DEFAULT_SIZE,
+        public length: number = 0,
+        readonly snapshot?: Snapshot,
     ) {
-        this.length = length
-        this.snapshot = snapshot
-
-        this.size = snapshot ? snapshot[2] : size
+        if (snapshot) {
+            [this.size, this.indices, this.override] = snapshot
+        }
     }
-
-    public clone() { }
 }
+
+export function findIndex(
+    model: ViewModel,
+    offset: number,
+    low: number = 0,
+    high: number = model.length - 1
+) {
+    while (low <= high) {
+        const middle = Math.floor((low + high) / 2)
+    }
+}
+
+export function getItemSize(model: ViewModel, index: number) {
+    const size = model.indices[index]
+    return size === undefined ? model.size : size
+}
+
+export function setItemSize(model: ViewModel, index: number, size: number) {
+    model.indices[index] = size
+}
+
+export function aggregateSize() { }
+
+export function computedOffset(model: ViewModel, index: number) {
+    if (!model.length) return 0
+}
+
