@@ -19,12 +19,3 @@ export class ViewModel {
         }
     }
 }
-
-export function getItemSize(model: ViewModel, index: number) {
-    const size = model.indices[index]
-    return size === undefined ? model.size : size
-}
-
-export function setItemSize(model: ViewModel, index: number, size: number) {
-    model.indices[index] = size
-}
