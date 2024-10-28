@@ -1,10 +1,10 @@
 import { defineComponent } from "vue";
 
-export const Tbody = defineComponent({
-    name: 'Tbody',
+export const Thead = defineComponent({
+    name: 'Thead',
     setup() {
         return () => (
-            <tbody></tbody>
+            <thead></thead>
         )
     }
 })
