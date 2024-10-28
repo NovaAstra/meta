@@ -2,3 +2,4 @@ packages:
     - 'vue/*'
     - 'core/*'
     - 'apps/*'
+    - 'packages/*'

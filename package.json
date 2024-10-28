@@ -4,7 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "demo": "pnpm --filter @meta-vue/demo dev"
+        "demo": "pnpm --filter @meta-vue/table dev"
     },
     "devDependencies": {
         "@meta-core/typeable":"workspace:*",
